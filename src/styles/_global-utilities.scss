@@ -1,0 +1,12 @@
+@import "./variables/all";
+@import "functions";
+@import "./mixins/all";
+@import "./layout/all";
+@import "./effects/all";
+
+.truncate {
+  max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

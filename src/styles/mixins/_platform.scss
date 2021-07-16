@@ -1,0 +1,49 @@
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━━  PLATFORM  ━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Media and platform routines.                                       ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+@use "sass:list";
+
+@mixin min($breakpoint) {
+  // min(1) is equal to min($first); Or pass a literal: min(500px)
+  @if not($breakpoint > list.length($scale)) {
+    $breakpoint: list.nth($scale, $breakpoint);
+  }
+  @media (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin max($breakpoint) {
+  // opposite of min()
+  @if not($breakpoint > list.length($scale)) {
+    $breakpoint: list.nth($scale, $breakpoint);
+  }
+  @media (max-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin between($min, $max) {
+  // similar to min() but with a maximum value
+  @if not($min > list.length($scale)) and not ($max > list.length($scale)) {
+    $min: list.nth($scale, $min);
+    $max: list.nth($scale, $max);
+  }
+  @media ((min-width: $min) and (max-width: $max)) {
+    @content;
+  }
+}
+
+@mixin min-res($resolution) {
+  // pass target resolution in dpi, dppx or dpcm units
+  @media screen and (min-resolution: $resolution) {
+    @content;
+  }
+}
+
+@mixin max-res($resolution) {
+  // opposite of min-res()
+  @media screen and (max-resolution: $resolution) {
+    @content;
+  }
+}

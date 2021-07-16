@@ -1,0 +1,39 @@
+$white: #c8cfd5;
+$white-2: darken(#c8cfd5, 5%);
+$white-3: darken(#c8cfd5, 10%);
+$white-4: darken(#c8cfd5, 15%);
+$black: #16191d;
+$success: #77b82e;
+$summary-lower: #009d9a;
+$system-green: #64c255;
+$error: #e15856;
+$warning: #b0ab21;
+$testwarning: #fbbc09;
+// $system-color-100: #758799;
+// $system-color-300: #5f737f;
+// $system-color-400: #4a5764;
+// $system-color-500: #263745;
+// $system-color-600: #273949;
+// $system-color-700: #141d24;
+// $system-color-900: #151f28;
+
+$system-tab-100: #9d9d9d;
+$system-tab-200: #4d5e6d;
+
+$system-color: #8c99a6;
+$system-color-100: #657381;
+$system-color-200: #374553; // Glow
+$system-color-300: #2b3640; // Light
+$system-color-400: #222b34;
+$system-color-500: #1d252c; // Middle
+// $system-color-600: #363636;
+$system-color-700: #182025; // Dark
+$system-color-900: #101519;
+$brand-primary: #267fd9;
+$brand-lighter: #6dafe9;
+$brand-light: #91d1ff;
+$brand-primary-100: darken($brand-primary, 10%);
+$brand-primary-300: darken($brand-primary, 20%);
+$brand-primary-500: darken($brand-primary, 30%);
+$brand-primary-700: darken($brand-primary, 40%);
+$brand-primary-900: darken($brand-primary, 50%);

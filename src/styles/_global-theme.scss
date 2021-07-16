@@ -1,0 +1,147 @@
+@import "./global-utilities";
+@import "./font-faces";
+
+#apollo {
+  @extend .flex, .row;
+}
+
+html {
+  font-size: $base;
+}
+
+body {
+  font-family: $system-font;
+  font-weight: 500;
+  color: $white;
+}
+
+h1 {
+  font-size: $h1;
+}
+h2 {
+  font-size: $h2;
+}
+h3 {
+  font-size: $h3;
+}
+h4 {
+  font-size: $h4;
+}
+h5 {
+  font-size: $h5;
+}
+h6 {
+  font-size: $h6;
+  &.subtitle {
+    font-size: calc(#{$h6} - 3px);
+  }
+}
+p,
+button,
+[type="button"],
+label,
+input,
+th,
+td {
+  font-size: $p;
+}
+
+.soft {
+  &.white {
+    color: darken($color: $white, $amount: 30);
+  }
+}
+
+// Input
+/* Change Autocomplete styles in Chrome*/
+// TODO: Refactor form and input styling
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill::first-line,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+textarea:-webkit-autofill::first-line,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus,
+select:-webkit-autofill::first-line {
+  font-family: $system-font;
+  font-size: $p !important;
+}
+
+input {
+  @include input-style;
+}
+
+[type="date"] {
+  width: 160px;
+}
+
+// Custom Scrollbars
+
+::-webkit-scrollbar {
+  width: 37px;
+  height: 7px;
+  margin-left: -20px;
+}
+::-webkit-scrollbar-track {
+  border: 15px solid transparent;
+  width: 5px;
+  border-top-width: 0;
+  border-bottom-width: 0;
+  background-clip: padding-box;
+  background-color: $system-color-200;
+  border-radius: 10px;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  border: 15px solid transparent;
+  border-top-width: 0;
+  border-bottom-width: 0;
+  background-clip: padding-box;
+  border-radius: 7px;
+  background-color: $system-color-100;
+}
+::-webkit-scrollbar-button {
+  width: 0;
+  height: 0;
+  display: none;
+}
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+input,
+.dropdown {
+  &:disabled {
+    color: $system-color-100;
+    background: $system-color;
+    pointer-events: none;
+    &::placeholder {
+      color: $system-color-100;
+    }
+  }
+}
+
+// Special text
+.text {
+  &.primary {
+    // background: -webkit-linear-gradient(#eee, #333);
+    background: linear-gradient(
+      135deg,
+      lighten($brand-primary, 3%) 50%,
+      darken($brand-primary, 5%) 85%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+// Icon adjustments
+.fa-edit {
+  position: relative;
+  left: 1px;
+  bottom: 1px;
+}

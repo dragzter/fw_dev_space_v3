@@ -1,0 +1,6 @@
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━  CONVERSION  ━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+
+// define pixels as rem
+@function rem($value) {
+  @return #{unit($value) / unit($base)}rem;
+}

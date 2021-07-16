@@ -1,0 +1,6 @@
+@mixin splash($image, $position: center) {
+  background-image: url($image);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: $position;
+}

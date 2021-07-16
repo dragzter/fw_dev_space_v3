@@ -1,0 +1,6 @@
+/*━━━━━━━━━━━━━━━━━━━━━━━━━━━  UTILITIES  ━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+
+// strip unit from value
+@function unit($value) {
+  @return $value / 1;
+}

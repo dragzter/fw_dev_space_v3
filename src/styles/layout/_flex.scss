@@ -1,0 +1,222 @@
+.flex {
+  display: flex;
+  &-inline {
+    display: inline-flex;
+  }
+  &.wrap {
+    flex-wrap: wrap;
+  }
+  &.justify {
+    &-start {
+      justify-content: flex-start;
+    }
+    &-center {
+      justify-content: center;
+    }
+    &-end {
+      justify-content: flex-end;
+    }
+    &-between {
+      justify-content: space-between;
+    }
+    &-around {
+      justify-content: space-around;
+    }
+    &-evenly {
+      justify-content: space-evenly;
+    }
+  }
+  &.align {
+    &-start {
+      align-items: flex-start;
+    }
+    &-center {
+      align-items: center;
+    }
+    &-end {
+      align-items: flex-end;
+    }
+  }
+  &-children {
+    & > * {
+      flex: 1;
+    }
+  }
+  &-1 {
+    flex: 1;
+  }
+  &-2 {
+    flex: 2;
+  }
+  &-3 {
+    flex: 3;
+  }
+  &-4 {
+    flex: 4;
+  }
+  &-5 {
+    flex: 5;
+  }
+  &-6 {
+    flex: 6;
+  }
+  &-7 {
+    flex: 7;
+  }
+  &-8 {
+    flex: 8;
+  }
+  &-9 {
+    flex: 9;
+  }
+  &-10 {
+    flex: 10;
+  }
+  &-11 {
+    flex: 11;
+  }
+  &-12 {
+    flex: 12;
+  }
+  &.gutter {
+    &-1 {
+      @include flex-gutter();
+    }
+    &-2 {
+      @include flex-gutter(1.5);
+    }
+    &-3 {
+      @include flex-gutter(2);
+    }
+    &-4 {
+      @include flex-gutter(2.5);
+    }
+    &-5 {
+      @include flex-gutter(3);
+    }
+    &-6 {
+      @include flex-gutter(3.5);
+    }
+    &-7 {
+      @include flex-gutter(4);
+    }
+    &-8 {
+      @include flex-gutter(4.5);
+    }
+    &-9 {
+      @include flex-gutter(5);
+    }
+    &-10 {
+      @include flex-gutter(5.5);
+    }
+    &-11 {
+      @include flex-gutter(6);
+    }
+    &-12 {
+      @include flex-gutter(6.5);
+    }
+  }
+  &.grow {
+    flex: 1;
+  }
+  &.shrink {
+    flex: 0;
+  }
+  &.auto {
+    flex: 1 0 auto;
+  }
+  &.row {
+    flex-direction: row;
+  }
+  &.col {
+    flex-direction: column;
+  }
+  &-grid {
+    display: grid;
+    &-inline {
+      display: inline-grid;
+    }
+    grid-column-gap: $spacing-1;
+    grid-row-gap: $spacing-1;
+    &.col {
+      &-1 {
+        grid-template-columns: repeat(1, auto);
+      }
+      &-2 {
+        grid-template-columns: repeat(2, auto);
+      }
+      &-3 {
+        grid-template-columns: repeat(3, auto);
+      }
+      &-4 {
+        grid-template-columns: repeat(4, auto);
+      }
+      &-5 {
+        grid-template-columns: repeat(5, auto);
+      }
+      &-6 {
+        grid-template-columns: repeat(6, auto);
+      }
+      &-7 {
+        grid-template-columns: repeat(7, auto);
+      }
+      &-8 {
+        grid-template-columns: repeat(8, auto);
+      }
+      &-9 {
+        grid-template-columns: repeat(9, auto);
+      }
+      &-10 {
+        grid-template-columns: repeat(10, auto);
+      }
+      &-11 {
+        grid-template-columns: repeat(11, auto);
+      }
+      &-12 {
+        grid-template-columns: repeat(12, auto);
+      }
+    }
+    &.gutter {
+      &-1 {
+        @include grid-gutter();
+      }
+      &-2 {
+        @include grid-gutter(1.5);
+      }
+      &-3 {
+        @include grid-gutter(2);
+      }
+      &-4 {
+        @include grid-gutter(2.5);
+      }
+      &-5 {
+        @include grid-gutter(3);
+      }
+      &-6 {
+        @include grid-gutter(3.5);
+      }
+      &-7 {
+        @include grid-gutter(4);
+      }
+      &-8 {
+        @include grid-gutter(4.5);
+      }
+      &-9 {
+        @include grid-gutter(5);
+      }
+      &-10 {
+        @include grid-gutter(5.5);
+      }
+      &-11 {
+        @include grid-gutter(6);
+      }
+      &-12 {
+        @include grid-gutter(6.5);
+      }
+    }
+  }
+}
+
+.margin-0 {
+  margin: 0 !important;
+}

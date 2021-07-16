@@ -1,0 +1,7 @@
+@mixin shadow($color: $black, $spread: 10px, $offset-x: 0px, $offset-y: 0px) {
+  box-shadow: $offset-x $offset-y $spread $color;
+}
+
+@mixin widget-shadow {
+  @include shadow($color: $system-color-200, $spread: 5px);
+}

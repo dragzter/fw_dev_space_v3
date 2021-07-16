@@ -1,0 +1,14 @@
+@mixin compact-scrollbars() {
+  &::-webkit-scrollbar,
+  ::-webkit-scrollbar {
+    width: 17px;
+  }
+  &::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-track {
+    border: 5px solid transparent;
+  }
+  &::-webkit-scrollbar-thumb,
+  ::-webkit-scrollbar-thumb {
+    border: 5px solid transparent;
+  }
+}

@@ -1,0 +1,12 @@
+/*━━━━━━━━━━━━━━━━━━━━━  MEDIA  ━━━━━━━━━━━━━━━━━━━━━┓
+┃ Configure platform breakpoints.                    ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━*/
+
+// SCALE ___________________________________⌋ viewport
+// index starts at 1 (default for SCSS lists)
+
+$scale: 1280px, 1536px;
+
+// keywords                                  ≈ viewport
+$laptop: nth($scale, 1); // .......laptop (breakpoint 1)
+$desktop: nth($scale, 2); // .....desktop (breakpoint 2)

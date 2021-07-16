@@ -1,0 +1,90 @@
+@mixin input-style() {
+  border: none;
+  height: $input-height;
+  padding: $spacing-1 $spacing-3;
+  padding-left: calc(#{$spacing-3} - #{$border-size-2});
+  box-sizing: border-box;
+  border-radius: $border-radius-small;
+  margin: $spacing-3 0px;
+  color: $system-color-500;
+  background: $white;
+  font-size: $p;
+  font-weight: 500;
+  border-left: $border-size-2 solid transparent;
+  transition: border-left $speed-1;
+  &.dark {
+    background: $system-color-500;
+    color: $white;
+  }
+  &:focus {
+    outline: none;
+  }
+  &.invalid {
+    border-left: $border-size-2 solid $error;
+  }
+  &.valid {
+    border-left: $border-size-2 solid $success;
+  }
+}
+
+@mixin checkbox-style {
+  @extend .flex, .row, .gutter-1, .align-center;
+  position: relative;
+  &:not(:first-of-type) {
+    margin-left: 13px;
+  }
+  .label {
+    @extend .flex, .align-center;
+    font-size: calc(#{$h6} - 3px);
+    font-weight: 500;
+    color: $white;
+    white-space: nowrap;
+    margin-right: 20px;
+  }
+  .checkbox {
+    position: absolute;
+    right: -3px;
+    height: 18px;
+    width: 18px;
+    padding: 2px;
+    box-sizing: border-box;
+    background-color: $system-color-500;
+    border-radius: 3px;
+    z-index: 1;
+    svg,
+    span.icon-bg {
+      width: 14px;
+      height: 14px;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      display: none;
+    }
+    span.icon-bg {
+      background-color: $white;
+    }
+  }
+  input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    margin: 0 !important;
+    height: auto;
+    z-index: 2;
+  }
+  input:checked ~ .checkbox {
+    svg {
+      color: $brand-primary;
+      display: block;
+    }
+    span.icon-bg {
+      display: block;
+      background-color: $white;
+      width: 10px;
+      height: 10px;
+      top: 4px;
+      left: 4px;
+    }
+  }
+}

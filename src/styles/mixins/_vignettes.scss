@@ -1,0 +1,23 @@
+._vignette-shadow-content {
+  content: "";
+  width: 100%;
+  position: absolute;
+  left: 0px;
+  box-shadow: 0px 0px 12px 2px $black;
+}
+
+@mixin vignette($top: false, $bottom: false) {
+  @if ($top) {
+    &:before {
+      @extend ._vignette-shadow-content;
+      top: 0;
+    }
+  }
+
+  @if ($bottom) {
+    &:after {
+      @extend ._vignette-shadow-content;
+      bottom: 0;
+    }
+  }
+}

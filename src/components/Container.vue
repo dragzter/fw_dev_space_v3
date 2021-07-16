@@ -45,6 +45,7 @@ import ScrollableList from "./ui/ScrollableList.vue";
 import Checkbox from "./ui/Checkbox.vue";
 import DataTable from "./ui/DataTable.vue";
 import { capacityData, markets } from "../data/sample_data";
+import { moldedTableData } from "./helpers";
 import { sortArray } from "./helpers";
 import { select as d3_select, scaleOrdinal as d3_scaleOrdinal } from "d3";
 interface Detail<T> {
@@ -242,11 +243,21 @@ export default defineComponent({
     };
 
     /**
-     * Scale
+     * Sets the active column sort.
+     * @param col string
+     * @returns void
+     */
+    function setActiveKey(table: string = "lanes", col: string): void {
+      activeCol.value = col;
+    }
+
+    /**
+     * Color Scale
+     * Paints td elements based on provided values
      */
     function colorScale(str: string, el: any) {
       if (!str) {
-        return;
+        return; // terminate early, terminate often
       }
 
       // 1 to 1 mapping with colors
@@ -350,6 +361,7 @@ export default defineComponent({
       handleSelectAll,
       isAllSelected,
       checkboxContainer,
+      setActiveKey,
     };
   },
 });

@@ -1,3 +1,6 @@
+import { capacityData } from "../data/sample_data";
+import { TableDataMold } from "./types";
+
 export const sortValidationArray = (
   data: any[],
   key: string,
@@ -47,5 +50,44 @@ export const sortArray = (
         }
       }
     }
+  });
+};
+
+/**
+ * Creates a UUID.
+ * @returns String
+ */
+export const createUUID = (): String => {
+  let dt: number = new Date().getTime();
+  const uuid: String = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+    /[xy]/g,
+    (c) => {
+      let r: number = (dt + Math.random() * 16) % 16 | 0;
+      dt = Math.floor(dt / 16);
+
+      return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
+    }
+  );
+
+  return uuid;
+};
+
+/**
+ *
+ * @returns DataMold[] an array of fitted data sets
+ * This helps to normalize the data so we can avoid
+ * having to change it elsewhere.
+ */
+export const moldedTableData = (): TableDataMold[] => {
+  return capacityData.map((data): TableDataMold => {
+    return {
+      market_city: data.granularity1_name,
+      market_condition: data.out_vol,
+      market_code: data.granularity1,
+      market_share: data.market_share,
+      market_score: data.otri_ind,
+      spark_trend_line: data.tlt,
+      out_tender_rejection: data.tlt_ind,
+    } as TableDataMold;
   });
 };

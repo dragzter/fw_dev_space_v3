@@ -91,3 +91,23 @@ export const moldedTableData = (): TableDataMold[] => {
     } as TableDataMold;
   });
 };
+
+/**
+ * This is for development only
+ * @returns [data] an array of objects
+ * containing randomized data for sparklines.
+ */
+export const sparkDataBuilder = () => {
+  const data = [];
+
+  for (let i = 0; i < 14; i++) {
+    let obj = {
+      x: "" + i,
+      y: Math.floor(Math.random() * (100 - 10)) + 10,
+    };
+
+    data.push(obj);
+  }
+
+  return [data];
+};

@@ -81,6 +81,7 @@ export interface LaneResponse extends LaneSelection {
   TLTW: Detail<number> | number;
   haul_ind: Detail<number> | number;
   otri_ind: Detail<number> | number;
+  spark_data: any;
   otvi_ind: Detail<number> | number;
   tlt_ind: Detail<number> | number;
   granularity1: Detail<string> | string;
@@ -136,7 +137,7 @@ export default defineComponent({
       },
       {
         type: "string",
-        key: "tlt",
+        key: "spark_data",
         label: "14 Day Sparkline Trend for Makret Score",
       },
       {
@@ -326,13 +327,10 @@ export default defineComponent({
       switch (type) {
         case "number":
           return Number(value).toFixed(3);
-          break;
         case "percentage":
           return `${Number(value).toFixed(2)}%`;
-          break;
         case "string":
           return value;
-          break;
         default:
           return value;
       }
@@ -345,6 +343,27 @@ export default defineComponent({
       },
       { deep: true }
     );
+
+    function sparkDataBuilder() {
+      const data = [];
+
+      for (let i = 0; i < 14; i++) {
+        let obj = {
+          x: "" + i,
+          y: Math.floor(Math.random() * (100 - 10)) + 10,
+        };
+
+        data.push(obj);
+      }
+
+      return data;
+    }
+
+    onMounted(() => {
+      capacityData.forEach((data) => {
+        data.spark_data = sparkDataBuilder();
+      });
+    });
 
     return {
       addMarketToCall,

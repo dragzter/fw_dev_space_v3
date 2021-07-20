@@ -55,7 +55,22 @@
                   : ''
               "
             >
-              <div>{{ displayFunction(row, col) }}</div>
+              <div v-if="col.key === 'spark_data'">
+                <spark-chart
+                  :sparkData="row.spark_data"
+                  :color="'success'"
+                  :metricType="'network-lane'"
+                  :title="'Outbound'"
+                  :gaugeData="{}"
+                  :showMouseTracker="false"
+                  :width="220"
+                  :height="40"
+                  :showValue="false"
+                  :hideTooltip="true"
+                  :cssClasses="'list-chart'"
+                />
+              </div>
+              <div v-else>{{ displayFunction(row, col) }}</div>
               <template v-if="col.deps && displayFunction(row, col)">
                 <div v-for="dep in col.deps" :key="dep">
                   {{ displayFunction(row, dep) }}
@@ -89,6 +104,8 @@ interface Detail<T> {
 }
 import { defineComponent, ref, computed, watch, PropType } from "vue";
 import LoadIcon from "./LoadIcon.vue";
+import SparkChart from "./SparkChart.vue";
+
 import Arrow from "./Arrow.vue";
 export interface Column {
   type: "date" | "number" | "string";
@@ -292,6 +309,7 @@ export default defineComponent({
   components: {
     LoadIcon,
     Arrow,
+    SparkChart,
   },
 });
 </script>

@@ -1,11 +1,11 @@
 <template>
   <div :class="classes" class="spark-chart">
-    <h6 :class="cssClasses" v-if="metricType" class="title subtitle">
+    <!-- <h6 :class="cssClasses" v-if="metricType" class="title subtitle">
       {{ title }}
-    </h6>
+    </h6> -->
     <component :is="!hideTooltip ? 'tooltip' : 'v-fragment'">
       <div class="chart" :class="colorType" ref="sparkLine"></div>
-      <template v-slot:popup v-if="dataValue && !hideTooltip">
+      <!-- <template v-slot:popup v-if="dataValue && !hideTooltip">
         <p class="value-text">
           <span class="date" v-if="dataValue.date">{{ dataValue.date }} - </span
           ><span
@@ -15,9 +15,9 @@
             >{{ dataValue.value }}</span
           >
         </p>
-      </template>
+      </template> -->
     </component>
-    <h6 v-if="!metricType" class="title subtitle">{{ title }}</h6>
+    <!-- <h6 v-if="!metricType" class="title subtitle">{{ title }}</h6> -->
   </div>
 </template>
 
@@ -44,7 +44,7 @@ import {
   max as d3_max,
   color,
 } from "d3";
-import Tooltip from "/@/components/ui_elements/Tooltip.vue";
+//import Tooltip from "/@/components/ui_elements/Tooltip.vue";
 import moment from "moment";
 import { createUUID } from "../helpers";
 
@@ -116,7 +116,7 @@ export default defineComponent({
   setup(props, ctx) {
     const WIDTH = props.width;
     const HEIGHT = props.height;
-    const MARGIN = { top: 0, right: 5, bottom: 0, left: 5 };
+    const MARGIN = { top: 0, right: 5, bottom: 0, left: 0 };
     const INNER_WIDTH = (WIDTH as number) - MARGIN.left - MARGIN.right;
     const INNER_HEIGHT = (HEIGHT as number) - MARGIN.top - MARGIN.bottom;
     const DATA_COUNT = props.sparkData ? props.sparkData.length : 0;
@@ -242,7 +242,7 @@ export default defineComponent({
           .style("fill", "none")
           .style("stroke", "none")
           .style("pointer-events", "all")
-          .attr("width", props.showValue ? WIDTH * 0.6 : WIDTH * 0.84)
+          .attr("width", props.showValue ? WIDTH * 0.6 : WIDTH * 0.89)
           .attr("height", (HEIGHT as number) * 0.84)
           .attr("transform", "translate(-0.5, 0)")
           .on("mouseover", mouseover)
@@ -359,7 +359,7 @@ export default defineComponent({
     return { sparkLine, colorType, dataValue, classes, id };
   },
   components: {
-    Tooltip,
+    //Tooltip,
   },
 });
 </script>
@@ -376,6 +376,7 @@ export default defineComponent({
     height: calc(#{$h6} - #{$spacing-1});
     position: relative;
     background: transparent;
+    margin-top: 5px;
     &.neutral {
       stroke: $system-color-100;
 

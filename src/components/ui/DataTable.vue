@@ -56,7 +56,7 @@
               "
             >
               <div v-if="col.key === 'spark_data'">
-                <spark-chart
+                <!-- <spark-chart
                   :sparkData="row.spark_data"
                   :color="'success'"
                   :metricType="'network-lane'"
@@ -68,6 +68,12 @@
                   :showValue="false"
                   :hideTooltip="true"
                   :cssClasses="'list-chart'"
+                /> -->
+                <sparkline
+                  :sparkData="row.spark_data"
+                  :color="'success'"
+                  :width="220"
+                  :height="40"
                 />
               </div>
               <div v-else>{{ displayFunction(row, col) }}</div>
@@ -105,6 +111,7 @@ interface Detail<T> {
 import { defineComponent, ref, computed, watch, PropType } from "vue";
 import LoadIcon from "./LoadIcon.vue";
 import SparkChart from "./SparkChart.vue";
+import Sparkline from "./Sparkline.vue";
 
 import Arrow from "./Arrow.vue";
 export interface Column {
@@ -310,6 +317,7 @@ export default defineComponent({
     LoadIcon,
     Arrow,
     SparkChart,
+    Sparkline,
   },
 });
 </script>

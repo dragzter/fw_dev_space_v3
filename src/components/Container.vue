@@ -349,7 +349,7 @@ export default defineComponent({
 
       for (let i = 0; i < 14; i++) {
         let obj = {
-          x: "" + i,
+          x: i,
           y: Math.floor(Math.random() * (100 - 10)) + 10,
         };
 

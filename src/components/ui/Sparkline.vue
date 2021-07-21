@@ -146,12 +146,24 @@ export default defineComponent({
         .attr("stroke-width", 2);
 
       // TRACKER
-      const circle = svg
+      const tracker = svg
         .append("g")
         .attr("class", "tracker")
-        .append("circle")
-        .attr("r", 3)
         .style("opacity", 0);
+
+      tracker.append("circle").attr("r", 3);
+
+      tracker
+        .append("rect")
+        .attr("class", "tooltip")
+        .attr("width", 28)
+        .attr("height", 16)
+        .attr("x", 10)
+        .attr("y", -22)
+        .attr("rx", 2)
+        .attr("ry", 2);
+
+      tracker.append("text").attr("class", "t-text");
 
       svg
         .append("rect")
@@ -168,23 +180,22 @@ export default defineComponent({
       // Shows line tracking data point circle when entering
       // position tracking area.
       function mouseover<MouseEvent>(): void {
-        circle.style("opacity", 1);
+        tracker.style("opacity", 1);
       }
 
       // Hides line tracking data point circle.
       function mouseout<MouseEvent>(): void {
-        circle.style("opacity", 0);
+        tracker.style("opacity", 0);
       }
 
       function mousemove<MouseEvent>(d: MouseEvent): void {
-        if (circle) {
+        if (tracker) {
           // Gets x values of the mouse when moving in the position tracking area.
           var x0 = d3_pointer(d)[0];
           // var x1 = x.value.invert(d3_pointer(d)[0]);
           const x1 = x.value.invert(x0);
           // Gets y values based on the x values of the mouse when moving in the position tracking area.
           const bisect = d3_bisector((d: any) => d.x).left;
-
           const i = bisect(data.value, x1);
 
           const d0: any = data.value[i];
@@ -192,7 +203,21 @@ export default defineComponent({
 
           var y0 = y.value(d0.y);
           // Update line tracking data point circle with x and y values as mouse moves.
-          circle.attr("cx", d1).attr("cy", y0 as number);
+          tracker
+            .select("circle")
+            .attr("cx", d1)
+            .attr("cy", y0 as number);
+
+          tracker
+            .select(".tooltip")
+            .attr("x", d1 + 5)
+            .attr("y", (y0 - 17) as number);
+
+          tracker
+            .select("text")
+            .attr("x", d1 + 8)
+            .attr("y", (y0 - 5) as number)
+            .text(d0.y);
         }
       }
 
@@ -281,6 +306,25 @@ export default defineComponent({
       bottom: 0px;
       top: 0px;
       overflow: visible;
+    }
+
+    .tooltip {
+      fill: $system-color-100;
+      stroke: lighten($system-color-100, 5%);
+    }
+
+    .t-text {
+      font-size: 12px;
+      stroke: #000;
+      fill: #000;
+    }
+
+    .tracker {
+      -webkit-transition: all 0.25s;
+      -moz-transition: all 0.25s;
+      -ms-transition: all 0.25s;
+      -o-transition: all 0.25s;
+      transition: all 0.25s;
     }
   }
 }

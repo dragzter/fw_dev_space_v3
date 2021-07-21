@@ -360,7 +360,7 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      capacityData.forEach((data) => {
+      capacityData.forEach((data: any) => {
         data.spark_data = sparkDataBuilder();
       });
     });

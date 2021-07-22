@@ -63,29 +63,20 @@ export type EquipmentType = "van" | "reefer" | "unknown";
 export interface LaneSelection {
   granularity1_name: Detail<string> | string;
 }
+export interface PlotPoint {
+  x: number;
+  y: number;
+}
 export interface LaneResponse extends LaneSelection {
-  data_timestamp: Detail<string> | string;
-  granularity_item_id: Detail<string> | string;
-  market_share: Detail<number>;
-  out_vol: Detail<string> | string;
-  out_rej: Detail<string> | string;
-  haul: Detail<string> | string;
-  tlt: Detail<string> | string;
-  OTVIW_volscr: Detail<number> | number;
-  OTRIW_volscr: Detail<number> | number;
-  HAULW_volscr: Detail<number> | number;
-  TLTW_volscr: Detail<number> | number;
-  OTVIW: Detail<number> | number;
-  OTRIW: Detail<number> | number;
-  HAULW: Detail<number> | number;
-  TLTW: Detail<number> | number;
-  haul_ind: Detail<number> | number;
-  otri_ind: Detail<number> | number;
-  spark_data: any;
-  otvi_ind: Detail<number> | number;
-  tlt_ind: Detail<number> | number;
-  granularity1: Detail<string> | string;
-  granularity1_name: Detail<string> | string;
+  market: string;
+  market_name: string;
+  otms: number;
+  otms_change: number;
+  score: number;
+  score_change: number;
+  score_last_14: PlotPoint[];
+  otri: number;
+  otri_change: number;
 }
 export default defineComponent({
   components: {
@@ -104,45 +95,29 @@ export default defineComponent({
     const columns: Column[] = [
       {
         type: "string",
-        key: "granularity1_name",
+        key: "market_name",
         label: "Primary Market City",
       },
-      { type: "string", key: "granularity1", label: "SONAR Market Code" },
-      { type: "percentage", key: "market_share", label: "US Market Share %" },
+      { type: "string", key: "market", label: "SONAR Market Code" },
+      { type: "percentage", key: "otms", label: "US Market Share %" },
       {
         type: "string",
-        key: "out_vol",
+        key: "otms_change",
         label: "Market Condition",
-        deps: [
-          {
-            key: "OTVIW",
-            type: "percentage",
-          },
-          {
-            key: "OTRIW",
-            type: "number",
-          },
-        ],
       },
       {
         type: "percentage",
-        key: "otri_ind",
+        key: "score",
         label: "Market Score (1=worst; 100=best)",
-        deps: [
-          {
-            key: "TLTW",
-            type: "percentage",
-          },
-        ],
       },
       {
         type: "string",
-        key: "spark_data",
+        key: "score_last_14",
         label: "14 Day Sparkline Trend for Makret Score",
       },
       {
         type: "number",
-        key: "tlt_ind",
+        key: "otri",
         label: "Outbound Tender Rejection",
       },
     ];
@@ -225,7 +200,7 @@ export default defineComponent({
       let existing: string[] = [];
       let incoming: string[] = [...requestString.value];
       sortableData.value.forEach((data) => {
-        existing.push(data.granularity1);
+        existing.push(data.market);
       });
 
       let existingString = existing.sort().join("");
@@ -235,7 +210,7 @@ export default defineComponent({
         const sampleResponseData = requestString.value.flatMap(
           (mrkt: string) => {
             return capacityData.filter((data) => {
-              return data.granularity1 === mrkt;
+              return data.market === mrkt;
             });
           }
         );
@@ -263,13 +238,14 @@ export default defineComponent({
 
       // 1 to 1 mapping with colors
       const scaleData = [
+        "",
         "Strong Increase",
         "Moderate Increase",
         "Moderate Decrease",
         "Strong Decrease",
       ];
 
-      const colors = ["#2d8d07", "#206504", "#800808", "#db0c0c"];
+      const colors = ["", "#2d8d07", "#206504", "#800808", "#db0c0c"];
       const ordinalScale = d3_scaleOrdinal().domain(scaleData).range(colors);
 
       setTimeout(() => {
@@ -344,25 +320,25 @@ export default defineComponent({
       { deep: true }
     );
 
-    function sparkDataBuilder() {
-      const data = [];
+    // function sparkDataBuilder() {
+    //   const data = [];
 
-      for (let i = 0; i < 14; i++) {
-        let obj = {
-          x: i,
-          y: Math.floor(Math.random() * (100 - 10)) + 10,
-        };
+    //   for (let i = 0; i < 14; i++) {
+    //     let obj = {
+    //       x: i,
+    //       y: Math.floor(Math.random() * (100 - 10)) + 10,
+    //     };
 
-        data.push(obj);
-      }
+    //     data.push(obj);
+    //   }
 
-      return data;
-    }
+    //   return data;
+    // }
 
     onMounted(() => {
-      capacityData.forEach((data: any) => {
-        data.spark_data = sparkDataBuilder();
-      });
+      // capacityData.forEach((data: any) => {
+      //   data.spark_data = sparkDataBuilder();
+      // });
     });
 
     return {
@@ -463,7 +439,6 @@ export default defineComponent({
       text-align: center !important;
       color: #fff;
       div {
-        margin-bottom: 5px;
       }
     }
 

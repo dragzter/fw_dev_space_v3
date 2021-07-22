@@ -1,6 +1,10 @@
 <template>
   <div class="spark-chart">
-    <div class="chart" :class="colorType" ref="sparkLine"></div>
+    <div
+      class="chart"
+      :class="[colorType, `chart-${id}`]"
+      ref="sparkLine"
+    ></div>
   </div>
 </template>
 
@@ -153,17 +157,12 @@ export default defineComponent({
 
       tracker.append("circle").attr("r", 3);
 
-      tracker
-        .append("rect")
+      const tooltip = d3_select(`.chart-${id}`)
+        .append("div")
         .attr("class", "tooltip")
-        .attr("width", 28)
-        .attr("height", 16)
-        .attr("x", 10)
-        .attr("y", -22)
-        .attr("rx", 2)
-        .attr("ry", 2);
+        .style("opacity", 0);
 
-      tracker.append("text").attr("class", "t-text");
+      tooltip.append("div").attr("class", "tooltip-text").text("text!");
 
       svg
         .append("rect")
@@ -181,11 +180,13 @@ export default defineComponent({
       // position tracking area.
       function mouseover<MouseEvent>(): void {
         tracker.style("opacity", 1);
+        tooltip.style("opacity", 1);
       }
 
       // Hides line tracking data point circle.
       function mouseout<MouseEvent>(): void {
         tracker.style("opacity", 0);
+        tooltip.style("opacity", 0);
       }
 
       function mousemove<MouseEvent>(d: MouseEvent): void {
@@ -208,15 +209,9 @@ export default defineComponent({
             .attr("cx", d1)
             .attr("cy", y0 as number);
 
-          tracker
-            .select(".tooltip")
-            .attr("x", d1 + 5)
-            .attr("y", (y0 - 17) as number);
-
-          tracker
-            .select("text")
-            .attr("x", d1 + 8)
-            .attr("y", (y0 - 5) as number)
+          tooltip
+            .attr("style", "left:" + (d1 + 40) + "px;top:" + (y0 - 10) + "px;")
+            .select(`.tooltip-text`)
             .text(d0.y);
         }
       }
@@ -263,7 +258,9 @@ export default defineComponent({
 
 <style lang="scss">
 @import "./src/styles/_global-utilities.scss";
-
+body {
+  position: relative;
+}
 .spark-chart {
   @extend .flex, .col, .justify-center, .align-center, .gutter-1;
   & > v-fragment {
@@ -327,5 +324,28 @@ export default defineComponent({
       transition: all 0.25s;
     }
   }
+}
+.tooltip {
+  width: 22px;
+  padding: 1px;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  background-color: #fff;
+  font-size: 12px;
+  z-index: 10;
+  left: 0;
+  pointer-events: none;
+  -webkit-transition: all 0.25s;
+  -moz-transition: all 0.25s;
+  -ms-transition: all 0.25s;
+  -o-transition: all 0.25s;
+  transition: all 0.25s;
+}
+
+.tooltip div {
+  margin: 1px 0;
+  color: #000;
 }
 </style>

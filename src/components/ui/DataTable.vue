@@ -47,33 +47,14 @@
               v-for="col in columns"
               :key="col.key"
               :id="`${col.key}_${rowIndex}`"
-              :style="
-                col.key === 'out_vol' ||
-                col.key === 'tlt' ||
-                col.key === 'out_rej'
-                  ? scaleFunction(row[col.key], `${col.key}_${rowIndex}`)
-                  : ''
-              "
+              :style="scaleFunction(row[col.key], `${col.key}_${rowIndex}`)"
             >
-              <div v-if="col.key === 'spark_data'">
-                <!-- <spark-chart
-                  :sparkData="row.spark_data"
-                  :color="'success'"
-                  :metricType="'network-lane'"
-                  :title="'Outbound'"
-                  :gaugeData="{}"
-                  :showMouseTracker="false"
-                  :width="220"
-                  :height="40"
-                  :showValue="false"
-                  :hideTooltip="true"
-                  :cssClasses="'list-chart'"
-                /> -->
+              <div v-if="col.key === 'score_last_14'">
                 <sparkline
-                  :sparkData="row.spark_data"
+                  :sparkData="row.score_last_14"
                   :color="'success'"
-                  :width="220"
-                  :height="40"
+                  :width="200"
+                  :height="30"
                 />
               </div>
               <div v-else>{{ displayFunction(row, col) }}</div>
@@ -124,28 +105,20 @@ export type EquipmentType = "van" | "reefer" | "unknown";
 export interface LaneSelection {
   granularity1_name: Detail<string> | string;
 }
+export interface PlotPoint {
+  x: number;
+  y: number;
+}
 export interface LaneResponse extends LaneSelection {
-  data_timestamp: Detail<string> | string;
-  granularity_item_id: Detail<string> | string;
-  market_share: Detail<number>;
-  out_vol: Detail<string> | string;
-  out_rej: Detail<string> | string;
-  haul: Detail<string> | string;
-  tlt: Detail<string> | string;
-  OTVIW_volscr: Detail<number> | number;
-  OTRIW_volscr: Detail<number> | number;
-  HAULW_volscr: Detail<number> | number;
-  TLTW_volscr: Detail<number> | number;
-  OTVIW: Detail<number> | number;
-  OTRIW: Detail<number> | number;
-  HAULW: Detail<number> | number;
-  TLTW: Detail<number> | number;
-  haul_ind: Detail<number> | number;
-  otri_ind: Detail<number> | number;
-  otvi_ind: Detail<number> | number;
-  tlt_ind: Detail<number> | number;
-  granularity1: Detail<string> | string;
-  granularity1_name: Detail<string> | string;
+  market: string;
+  market_name: string;
+  otms: number;
+  otms_change: number;
+  score: number;
+  score_change: number;
+  score_last_14: PlotPoint[];
+  otri: number;
+  otri_change: number;
 }
 export default defineComponent({
   props: {
